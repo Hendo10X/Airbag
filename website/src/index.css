@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'GeistPixel Grid';
+  src: url('./fonts/GeistPixel-Grid.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-pixel: 'GeistPixel Grid', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-accent: #4ADE80;
+  --color-accent-dark: #22C55E;
+  --color-code-bg: #1a1a1a;
+  --color-bg-primary: #F3F4F6; /* Light gray background from image */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  color: #111;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
