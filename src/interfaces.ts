@@ -45,11 +45,17 @@ export interface AirbagAdapter<TReturn = unknown> {
 
 export interface AirbagOptions<TReturn = unknown> {
   name?: string;
-  adapter?: AirbagAdapter<TReturn>;
-  retry?: Partial<RetryConfig>;
   timeout?: number;
+  retries?: number;
+  retry?: Partial<RetryConfig>;
   circuitBreaker?: Partial<CircuitBreakerConfig>;
   signal?: AbortSignal;
+  adapter?: AirbagAdapter<TReturn>;
+  onLoading?: AirbagAdapter<TReturn>['onLoading'];
+  onSuccess?: AirbagAdapter<TReturn>['onSuccess'];
+  onError?: AirbagAdapter<TReturn>['onError'];
+  onRetry?: AirbagAdapter<TReturn>['onRetry'];
+  onFinish?: AirbagAdapter<TReturn>['onFinish'];
 }
 
 export interface AirbagResolvedConfig<TReturn = unknown> {

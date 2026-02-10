@@ -21,17 +21,12 @@ async function fetchUser(id: string): Promise<User> {
 const safeFetchUser = airbag(fetchUser, {
   name: 'fetchUser',
   timeout: 5_000,
-  retry: { count: 3, backoff: 'exponential' },
-  adapter: {
-    onLoading: (loading) => {
-      if (loading) console.log('[loading] Fetching user...');
-      else console.log('[loading] Done.');
-    },
-    onSuccess: (user) => console.log('[success]', user.name),
-    onError: (err) => console.error('[error]', err.message),
-    onRetry: (attempt, err) => console.warn(`[retry] Attempt ${attempt}: ${err.message}`),
-    onFinish: (ctx) => console.log(`[finish] Took ${ctx.duration}ms`),
-  },
+  retries: 3,
+  onLoading: (loading) => console.log(loading ? '[loading] Fetching user...' : '[loading] Done.'),
+  onSuccess: (user) => console.log('[success]', user.name),
+  onError: (err) => console.error('[error]', err.message),
+  onRetry: (attempt, err) => console.warn(`[retry] Attempt ${attempt}: ${err.message}`),
+  onFinish: (ctx) => console.log(`[finish] Took ${ctx.duration}ms`),
 });
 
 async function standaloneExample() {
@@ -49,11 +44,9 @@ async function overrideExample() {
 // ─── 3. Instance-based usage ─────────────────────────────────────────────────
 
 const { wrap } = createAirbagInstance({
-  retry: { count: 2, backoff: 'exponential', baseDelay: 500 },
+  retries: 2,
   timeout: 10_000,
-  adapter: {
-    onError: (err, ctx) => console.error(`[${ctx.functionName}] ${err.message}`),
-  },
+  onError: (err, ctx) => console.error(`[${ctx.functionName}] ${err.message}`),
 });
 
 const fetchWithDefaults = wrap(fetchUser, {

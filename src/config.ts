@@ -1,4 +1,4 @@
-import type { AirbagOptions, AirbagResolvedConfig } from './interfaces';
+import type { AirbagAdapter, AirbagOptions, AirbagResolvedConfig } from './interfaces';
 
 const DEFAULTS: AirbagResolvedConfig = {
   name: 'anonymous',
@@ -36,8 +36,17 @@ export function resolveConfig<TReturn>(
     if (layer.timeout !== undefined) resolved.timeout = layer.timeout;
     if (layer.signal !== undefined) resolved.signal = layer.signal;
 
-    if (layer.adapter) {
-      resolved.adapter = { ...resolved.adapter, ...layer.adapter };
+    const flatAdapter: Partial<AirbagAdapter<TReturn>> = {};
+    if (layer.onLoading) flatAdapter.onLoading = layer.onLoading;
+    if (layer.onSuccess) flatAdapter.onSuccess = layer.onSuccess;
+    if (layer.onError) flatAdapter.onError = layer.onError;
+    if (layer.onRetry) flatAdapter.onRetry = layer.onRetry;
+    if (layer.onFinish) flatAdapter.onFinish = layer.onFinish;
+
+    resolved.adapter = { ...resolved.adapter, ...flatAdapter, ...(layer.adapter ?? {}) };
+
+    if (layer.retries !== undefined) {
+      resolved.retry = { ...resolved.retry, count: layer.retries };
     }
 
     if (layer.retry) {
