@@ -27,15 +27,11 @@ const fetchUser = async (id: string): Promise<User> => {
 };
 
 const safeFetchUser = airbag(fetchUser, {
-  name: 'fetchUser',
   timeout: 5000,
-  retry: { count: 3 },
-  adapter: {
-    onLoading: (loading) => spinner.toggle(loading),
-    onSuccess: (user) => toast.success(`Loaded ${user.name}`),
-    onError: (err) => toast.error(err.message),
-    onRetry: (attempt) => console.warn(`Retry #${attempt}...`),
-  },
+  retries: 3,
+  onLoading: (loading) => spinner.toggle(loading),
+  onSuccess: (user) => toast.success(`Loaded ${user.name}`),
+  onError: (err) => toast.error(err.message),
 });
 
 // Fully type-safe — same signature as fetchUser
@@ -53,11 +49,9 @@ import { createAirbagInstance } from 'airbag';
 
 // Level 1: Global defaults
 const { wrap } = createAirbagInstance({
-  retry: { count: 3 },
+  retries: 3,
   timeout: 10000,
-  adapter: {
-    onError: (err) => logger.error(err),
-  },
+  onError: (err) => logger.error(err),
 });
 
 // Level 2: Instance options (merged over global)
@@ -77,7 +71,7 @@ const user = await safeFetch.with({ timeout: 15000 })('user-123');
 Wraps an async function with execution orchestration.
 
 ```ts
-const wrapped = airbag(myAsyncFn, { timeout: 5000, retry: { count: 3 } });
+const wrapped = airbag(myAsyncFn, { timeout: 5000, retries: 3 });
 const result = await wrapped(...originalArgs);
 ```
 
@@ -86,7 +80,7 @@ const result = await wrapped(...originalArgs);
 Creates a factory with shared global defaults.
 
 ```ts
-const { wrap, configure, getDefaults } = createAirbagInstance({ retry: { count: 2 } });
+const { wrap, configure, getDefaults } = createAirbagInstance({ retries: 2 });
 ```
 
 ### `wrapped.with(overrides)`
@@ -108,6 +102,7 @@ Resets the circuit breaker state back to `closed`.
 | --- | --- | --- | --- |
 | `name` | `string` | `'anonymous'` | Identifier for logging and error messages |
 | `timeout` | `number` | `30000` | Timeout in ms (`0` disables) |
+| `retries` | `number` | `0` | Shorthand for `retry.count` |
 | `retry.count` | `number` | `0` | Number of retries after initial failure |
 | `retry.backoff` | `'exponential' \| 'linear' \| 'fixed'` | `'exponential'` | Backoff strategy between retries |
 | `retry.baseDelay` | `number` | `1000` | Base delay in ms |
@@ -118,19 +113,30 @@ Resets the circuit breaker state back to `closed`.
 | `circuitBreaker.resetTimeout` | `number` | `60000` | Ms before probing with a half-open attempt |
 | `signal` | `AbortSignal` | — | Cancel execution via `AbortController` |
 
-## Adapter Interface
+## Callbacks
 
-The adapter is how Airbag communicates lifecycle events. Wire it up to any UI layer — toasts, spinners, loggers, state managers.
+Lifecycle callbacks can be passed **flat** at the top level — no nesting required:
 
 ```ts
-interface AirbagAdapter<TReturn = unknown> {
-  onLoading?: (isLoading: boolean, context: ExecutionContext) => void;
-  onSuccess?: (data: TReturn, context: ExecutionContext) => void;
-  onError?: (error: Error, context: ExecutionContext) => void;
-  onRetry?: (attempt: number, error: Error, context: ExecutionContext) => void;
-  onFinish?: (context: ExecutionContext) => void;
-}
+airbag(fetchUser, {
+  retries: 3,
+  onSuccess: (user) => toast.success(user.name),
+  onError: (err) => toast.error(err.message),
+});
 ```
+
+For reusable callback sets, group them in an `adapter` object instead:
+
+```ts
+const logger: AirbagAdapter = {
+  onError: (err, ctx) => log.error(ctx.functionName, err),
+  onFinish: (ctx) => log.info(`Done in ${ctx.duration}ms`),
+};
+
+airbag(fetchUser, { retries: 3, adapter: logger });
+```
+
+If both flat callbacks and an `adapter` are provided, the `adapter` takes precedence.
 
 Every callback receives an `ExecutionContext`:
 
