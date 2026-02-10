@@ -54,7 +54,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       <aside
         className={`
-          fixed top-16 left-0 z-50 h-[calc(100vh-4rem)] w-64 bg-white border-r border-gray-100 p-6 overflow-y-auto
+          fixed top-0 left-0 z-50 h-screen w-64 bg-white border-r border-gray-100 p-6 overflow-y-auto
           transform transition-transform duration-200 ease-in-out
           lg:sticky lg:top-20 lg:z-auto lg:h-auto lg:max-h-[calc(100vh-6rem)] lg:transform-none lg:border-r-0 lg:p-0
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
@@ -68,7 +68,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               onClick={handleClick}
               className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
                 active === s.id
-                  ? 'bg-[#d9f99d] text-green-900 font-medium'
+                  ? 'bg-[#ecfccb] text-green-900 font-medium'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
             >

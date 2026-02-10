@@ -42,14 +42,14 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-6 flex flex-col gap-24">
         
         {/* Hero Section */}
-        <section className="min-h-screen flex flex-col justify-center items-start gap-8 max-w-4xl mx-auto w-full py-12 md:py-20">
+        <section className="min-h-screen flex flex-col justify-center items-start gap-4 md:gap-8 max-w-4xl mx-auto w-full py-6 md:py-20">
            {/* Header / Logo */}
           <header className="flex items-center gap-2">
-            <img src={AirbagLogo} alt="Airbag Logo" className="w-20 h-20" />
+            <img src={AirbagLogo} alt="Airbag Logo" className="w-16 h-16 md:w-20 md:h-20" />
           </header>
 
-          <main className="w-full space-y-8">
-            <h1 className="font-pixel text-5xl sm:text-6xl md:text-7xl leading-none text-gray-800 tracking-tight text-left max-w-3xl">
+          <main className="w-full space-y-4 md:space-y-8">
+            <h1 className="font-pixel text-4xl sm:text-6xl md:text-7xl leading-none text-gray-800 tracking-tight text-left max-w-3xl">
               Stop writing <br />
               try-catch blocks.
             </h1>
@@ -60,11 +60,11 @@ export default function Home() {
             </p>
 
             <div className="flex flex-row gap-4 pt-4 w-full sm:w-auto">
-              <button className="bg-[#1a1a1a] text-white font-mono px-6 py-3 rounded text-sm sm:text-base hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm">
+              <button className="bg-[#1a1a1a] text-white font-mono px-4 sm:px-6 py-3 rounded text-sm sm:text-base hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
                 <span>npm install airbag</span>
               </button>
               
-              <Link to="/docs" className="bg-[#F5F3FF] text-gray-800 font-pixel px-8 py-3 rounded text-sm sm:text-base hover:bg-[#EDE9FE] transition-colors cursor-pointer border border-transparent hover:border-purple-100 flex items-center justify-center font-medium no-underline">
+              <Link to="/docs" className="bg-[#F5F3FF] text-gray-800 font-pixel px-5 sm:px-8 py-3 rounded text-sm sm:text-base hover:bg-[#EDE9FE] transition-colors cursor-pointer border border-transparent hover:border-purple-100 flex items-center justify-center font-medium no-underline whitespace-nowrap">
                 View the Docs
               </Link>
             </div>
