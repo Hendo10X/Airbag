@@ -5,6 +5,7 @@ import NodeLogo from '../images/Node.svg';
 import TanstackLogo from '../images/Tanstack.svg';
 import VueLogo from '../images/Vue.svg';
 import SvelteLogo from '../images/svelte.svg';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CodeBlock from '../components/ui/CodeBlock';
 import Footer from '../components/layout/Footer';
@@ -37,6 +38,14 @@ const handleSubmit = airbag(saveUser, {
 });`;
 
 export default function Home() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText('npm install airbag');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="min-h-screen bg-bg-primary text-gray-900 font-sans">
       <div className="max-w-7xl mx-auto px-6 flex flex-col gap-24">
@@ -59,14 +68,19 @@ export default function Home() {
               smart error handling, and UI feedback. Crash-proof your code in one line.
             </p>
 
-            <div className="flex flex-row gap-4 pt-4 w-full sm:w-auto">
-              <button className="bg-code-bg text-white font-mono px-4 sm:px-6 py-3 rounded text-sm sm:text-base hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
-                <span>npm install airbag</span>
-              </button>
-              
-              <Link to="/docs" className="bg-[#F5F3FF] text-gray-800 font-pixel px-5 sm:px-8 py-3 rounded text-sm sm:text-base hover:bg-[#EDE9FE] transition-colors cursor-pointer border border-transparent hover:border-purple-100 flex items-center justify-center font-medium no-underline whitespace-nowrap">
-                View the Docs
-              </Link>
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-row gap-4 pt-4 w-full sm:w-auto">
+                <button onClick={handleCopy} className="bg-code-bg text-white font-mono px-4 sm:px-6 py-3 rounded text-sm sm:text-base hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
+                  <span>npm install airbag</span>
+                </button>
+                
+                <Link to="/docs" className="bg-[#F5F3FF] text-gray-800 font-pixel px-5 sm:px-8 py-3 rounded text-sm sm:text-base hover:bg-[#EDE9FE] transition-colors cursor-pointer border border-transparent hover:border-purple-100 flex items-center justify-center font-medium no-underline whitespace-nowrap">
+                  View the Docs
+                </Link>
+              </div>
+              {copied && (
+                <p className="text-sm text-green-600 font-mono">yay! you copied it</p>
+              )}
             </div>
           </main>
         </section>
