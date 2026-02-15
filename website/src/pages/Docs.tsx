@@ -12,7 +12,7 @@ export default function Docs() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-5xl mx-auto px-4 py-12">
       {/* Mobile menu button */}
       <button
         onClick={() => setSidebarOpen(true)}
@@ -26,9 +26,9 @@ export default function Docs() {
         Navigation
       </button>
 
-      <div className="flex gap-12">
+      <div className="flex gap-6 lg:gap-16">
         {/* Sidebar */}
-        <div className="hidden lg:block w-56 shrink-0">
+        <div className="hidden lg:block w-44 shrink-0">
           <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         </div>
 
@@ -37,8 +37,8 @@ export default function Docs() {
           <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         </div>
 
-        {/* Content */}
-        <div className="flex-1 min-w-0 space-y-16">
+        {/* Content - centered with max-width */}
+        <div className="flex-1 min-w-0 max-w-2xl mx-auto space-y-16">
           <GettingStarted />
           <QuickStart />
           <ApiReference />
