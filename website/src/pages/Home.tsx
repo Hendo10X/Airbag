@@ -63,18 +63,18 @@ export default function Home() {
               try-catch blocks.
             </h1>
 
-            <p className="font-mono text-base sm:text-lg text-gray-600 max-w-xl text-left leading-relaxed">
+            <p className="font-mono text-sm sm:text-base md:text-lg text-gray-600 max-w-xl text-left leading-relaxed">
               Airbag is the execution wrapper that gives your functions instant loading states, 
               smart error handling, and UI feedback. Crash-proof your code in one line.
             </p>
 
             <div className="flex flex-col gap-2">
               <div className="flex flex-row gap-4 pt-4 w-full sm:w-auto">
-                <button onClick={handleCopy} className="bg-code-bg text-white font-mono px-4 sm:px-6 py-3 rounded text-sm sm:text-base hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
+                <button onClick={handleCopy} className="bg-code-bg text-white font-mono px-3 sm:px-6 py-2.5 sm:py-3 rounded text-xs sm:text-base hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
                   <span>npm install airbag</span>
                 </button>
                 
-                <Link to="/docs" className="bg-[#F5F3FF] text-gray-800 font-pixel px-5 sm:px-8 py-3 rounded text-sm sm:text-base hover:bg-[#EDE9FE] transition-colors cursor-pointer border border-transparent hover:border-purple-100 flex items-center justify-center font-medium no-underline whitespace-nowrap">
+                <Link to="/docs" className="bg-[#F5F3FF] text-gray-800 font-pixel px-4 sm:px-8 py-2.5 sm:py-3 rounded text-xs sm:text-base hover:bg-[#EDE9FE] transition-colors cursor-pointer border border-transparent hover:border-purple-100 flex items-center justify-center font-medium no-underline whitespace-nowrap">
                   View the Docs
                 </Link>
               </div>
