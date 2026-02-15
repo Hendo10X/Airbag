@@ -38,11 +38,11 @@ const handleSubmit = airbag(saveUser, {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#F3F4F6] text-gray-900 font-sans">
+    <div className="min-h-screen bg-bg-primary text-gray-900 font-sans">
       <div className="max-w-7xl mx-auto px-6 flex flex-col gap-24">
         
         {/* Hero Section */}
-        <section className="min-h-screen flex flex-col justify-center items-start gap-4 md:gap-8 max-w-4xl mx-auto w-full py-6 md:py-20">
+        <section className="flex flex-col justify-start md:min-h-screen md:justify-center items-start gap-4 md:gap-8 max-w-4xl mx-auto w-full py-4 md:py-20">
            {/* Header / Logo */}
           <header className="flex items-center gap-2">
             <img src={AirbagLogo} alt="Airbag Logo" className="w-16 h-16 md:w-20 md:h-20" />
@@ -60,7 +60,7 @@ export default function Home() {
             </p>
 
             <div className="flex flex-row gap-4 pt-4 w-full sm:w-auto">
-              <button className="bg-[#1a1a1a] text-white font-mono px-4 sm:px-6 py-3 rounded text-sm sm:text-base hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
+              <button className="bg-code-bg text-white font-mono px-4 sm:px-6 py-3 rounded text-sm sm:text-base hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
                 <span>npm install airbag</span>
               </button>
               
@@ -79,10 +79,10 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="rounded-xl overflow-hidden shadow-lg transform rotate-[-1deg] hover:rotate-0 transition-transform duration-300 h-full">
+            <div className="rounded-xl overflow-hidden shadow-lg transform -rotate-1 hover:rotate-0 transition-transform duration-300 h-full">
                <CodeBlock code={boilerplateCode} lang="typescript" className="h-full" />
             </div>
-            <div className="rounded-xl overflow-hidden shadow-lg transform rotate-[1deg] hover:rotate-0 transition-transform duration-300 h-full">
+            <div className="rounded-xl overflow-hidden shadow-lg transform rotate-1 hover:rotate-0 transition-transform duration-300 h-full">
                <CodeBlock code={airbagCode} lang="typescript" className="h-full" />
             </div>
           </div>
