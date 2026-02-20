@@ -8,6 +8,7 @@ import SvelteLogo from '../images/svelte.svg';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CodeBlock from '../components/ui/CodeBlock';
+import ValueProp from '../components/landing/ValueProp';
 import Footer from '../components/layout/Footer';
 
 const boilerplateCode = `// The Boilerplate Nightmare
@@ -101,6 +102,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Value Proposition Section */}
+        <ValueProp />
 
         {/* What's under the hood? Section */}
         <section className="w-full max-w-6xl mx-auto space-y-12 pt-12 pb-24">
